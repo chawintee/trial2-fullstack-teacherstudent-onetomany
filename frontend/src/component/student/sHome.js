@@ -1,7 +1,8 @@
 import React from 'react'
 import {  Redirect, Link } from 'react-router-dom'
 
-function sHome() {
+function SHome() {
+
     return (
         <div>
             <h1>Student Homepage</h1>
@@ -11,4 +12,4 @@ function sHome() {
     )
 }
 
-export default sHome
+export default SHome

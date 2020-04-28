@@ -1,5 +1,5 @@
 module.exports = (sequelize,DataTypes)=>{
-    const Student = sequelize.define('student',{
+    const student = sequelize.define('student',{
         name: {
            type : DataTypes.STRING,
         },
@@ -18,11 +18,11 @@ module.exports = (sequelize,DataTypes)=>{
     });
 
 
-    Student.associate = models => {
-        Student.hasMany(models.teacher)
+    student.associate = models => {
+        student.hasMany(models.teacher)
     }
 
 
 
-    return Student;
+    return student;
 }

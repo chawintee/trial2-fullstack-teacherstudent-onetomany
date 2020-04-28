@@ -1,6 +1,8 @@
 import React from 'react'
 
-function error() {
+function Error() {
+
+
     return (
         <div>
             404 error Not Found
@@ -8,4 +10,4 @@ function error() {
     )
 }
 
-export default error
+export default Error

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes)=>{
-    const Teacher = sequelize.define('teacher',{
+    const teacher = sequelize.define('teacher',{
         name: {
             type : DataTypes.STRING,
         },
@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes)=>{
         },
     })
 
-    Teacher.associate = models => {
-        Teacher.belongsTo(models.student)
+    teacher.associate = models => {
+        teacher.belongsTo(models.student)
     }
 
 
-    return Teacher;
+    return teacher;
 }

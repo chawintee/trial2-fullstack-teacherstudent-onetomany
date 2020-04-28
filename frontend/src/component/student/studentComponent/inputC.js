@@ -1,13 +1,14 @@
 import React from 'react'
 
-function inputC(props) {
+function InputC(props) {
     return (
         <div>
-            This is input
-            <label></label>
-            <input onChange={props.inputText}/>
+
+            <label>{props.name}</label>
+            <br/>
+            <input onChange={props.inputText} value={props.value} placeholder={props.value} />
         </div>
     )
 }
 
-export default inputC
+export default InputC

@@ -9,6 +9,10 @@ import tShow from './teacher/tShow';
 import error from './error';
 
 function App() {
+
+  // const [name, setName] = useState("")
+
+
   return (
     <div className="App">
         <Switch>
