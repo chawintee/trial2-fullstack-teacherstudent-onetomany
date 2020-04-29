@@ -9,7 +9,7 @@ function Table(props) {
         <div>
             {thisEle1.map(ele=> 
             <tr key={ele.id}>
-                {ele.editStatus ? <input placeholder="Please put edit"/> : <td onDoubleClick={()=>props.dbClickToEdit(ele.id)}> {ele.number} </td>}
+                {ele.editStatus ? <input onDoubleClick={()=>props.dbClickToEdit(ele.id)} placeholder="Please put edit" onChange={props.editText} value={props.editToText} onBlur={()=>props.setToEdit(ele.id,"number",ele.editStatus)}/> : <td onDoubleClick={()=>props.dbClickToEdit(ele.id)}> {ele.number} </td>}
                 <td>{ele.name}</td>
                 <td>{ele.surname}</td>
                 <td>{ele.room}</td>
