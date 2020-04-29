@@ -11,44 +11,46 @@ function TShow() {
 
     const fetchData = async () => {
         const result = await axios.get('/student');
-        await result.data.map(ele => {
-            ele.editStatus = false;
-            ele.showStatus = false;
-        }) //add state to obj
-        const data = await result.data;
-        await setShowListStudent(data);
+        const data = result.data.map(ele => ({
+            ...ele,
+            editStatus: false,
+            showStatus: false,
+        })) //add state to obj
+        setShowListStudent(data);
+        setShowSelected(showListStudent)
     }
 
     useEffect(() => {
         fetchData()
     }, [])
+    useEffect(() => {
+        optionToSelect()
+    }, [showListStudent])
+    useEffect(() => {
+        setShowSelected(showListStudent)
+    }, [optionInSelect])
     
     
     
     const optionToSelect = async () => {
         // console.log("Hello")
-        const onlyOptionToSelect = await showListStudent.map(ele=>ele.year);
+        const onlyOptionToSelect = showListStudent.map(ele=>ele.year);
         // console.log(onlyOptionToSelect)
         const optionInSelect= await [...new Set(onlyOptionToSelect)];
         optionInSelect.sort()
         // console.log(optionInSelect)
         const optionInSelect1 = await optionInSelect.map((ele,index)=>({id:index ,year:ele}));
         const optionInSelectAddAll = [({id:optionInSelect.length,year:"All"}),...optionInSelect1]
-        setOptionInSelect(optionInSelectAddAll)
-        // console.log(optionInSelect1)
-        
+        setOptionInSelect(optionInSelectAddAll)        
     }
     
 
-    // useEffect(() => {
-    //     selectOption1();
-    // }, [])
 
     
     const selectOption1 = (e) => {
         // console.log("Hello")
         // console.log(e.target.value)
-        if(e.target.value == "All"){
+        if(e.target.value == "All") {
             setShowSelected(showListStudent);
         }else{
             const selected = showListStudent.filter((ele)=> ele.year == e.target.value);
@@ -65,15 +67,31 @@ function TShow() {
         // console.log(optionInSelect);
     }
 
+
+    const deleteEle = async (targetId) => {
+        await axios.delete(`/student/${targetId}`);
+        console.log(targetId);
+        const result = await axios.get(`/student`);
+        const data = result.data.map(ele => ({
+            ...ele,
+            editStatus: false,
+            showStatus: false,
+        }))
+        setShowListStudent(data);
+
+
+    }
+
+
     return (
         <div>
             Student Show for teacher<br/>
-            <select id="Year" onMouseOver={optionToSelect} onMouseMove={selectOption1} onChange={selectOption1} defaultValue="All">
+            <select id="Year" onChange={selectOption1} defaultValue="All">
                 {optionInSelect.map(ele=> <option key={ele.id} value={ele.year} >{ele.year}</option> )}
             </select>
 
             <ul>
-                <Year data={showSelected} />
+                <Year data={showSelected} onDelete={deleteEle} />
             </ul>
 
             <button onClick={logData}>log</button>

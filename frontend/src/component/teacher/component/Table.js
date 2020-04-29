@@ -13,6 +13,7 @@ function Table(props) {
                 <td>{ele.name}</td>
                 <td>{ele.surname}</td>
                 <td>{ele.room}</td>
+                <td><button onClick={()=>props.onDelete(ele.id)}>Del</button></td>
                 {/* <td>{`This is year ${ele.year}`}</td> */}
             </tr>
             )}

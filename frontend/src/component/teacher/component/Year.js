@@ -29,7 +29,7 @@ function Year(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {sortYear.map((ele,index) => <tr key={index}> {ele} <Table data={props.data} ele={ele}/> </tr>)} 
+                    {sortYear.map((ele,index) => <tr key={index}> {ele} <Table data={props.data} ele={ele} onDelete={props.onDelete}/> </tr>)} 
                     {/* <button onClick={logData}>log</button> */}
                 </tbody>
 
