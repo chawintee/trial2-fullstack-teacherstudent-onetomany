@@ -8,12 +8,12 @@ function Table(props) {
     return (
         <div>
             {thisEle1.map(ele=> 
-            <tr>
+            <tr key={ele.id}>
                 <td>{ele.number}</td>
                 <td>{ele.name}</td>
                 <td>{ele.surname}</td>
                 <td>{ele.room}</td>
-                <td>{`This is year ${ele.year}`}</td>
+                {/* <td>{`This is year ${ele.year}`}</td> */}
             </tr>
             )}
         </div>

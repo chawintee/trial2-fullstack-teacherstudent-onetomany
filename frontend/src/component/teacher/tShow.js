@@ -22,8 +22,8 @@ function TShow() {
     useEffect(() => {
         fetchData()
     }, [])
-
-
+    
+    
     
     const optionToSelect = async () => {
         // console.log("Hello")
@@ -33,18 +33,28 @@ function TShow() {
         optionInSelect.sort()
         // console.log(optionInSelect)
         const optionInSelect1 = await optionInSelect.map((ele,index)=>({id:index ,year:ele}));
-        setOptionInSelect(optionInSelect1)
+        const optionInSelectAddAll = [({id:optionInSelect.length,year:"All"}),...optionInSelect1]
+        setOptionInSelect(optionInSelectAddAll)
         // console.log(optionInSelect1)
-
+        
     }
     
 
+    // useEffect(() => {
+    //     selectOption1();
+    // }, [])
+
+    
     const selectOption1 = (e) => {
         // console.log("Hello")
         // console.log(e.target.value)
-        const selected = showListStudent.filter((ele)=> ele.year == e.target.value);
-        // console.log(selected)
-        setShowSelected(selected)
+        if(e.target.value == "All"){
+            setShowSelected(showListStudent);
+        }else{
+            const selected = showListStudent.filter((ele)=> ele.year == e.target.value);
+            // console.log(s elected)
+            setShowSelected(selected)
+        }
     }
 
     
@@ -57,8 +67,8 @@ function TShow() {
 
     return (
         <div>
-            Student Show for teacher
-            <select id="Year" onMouseOver={optionToSelect} onChange={selectOption1} >
+            Student Show for teacher<br/>
+            <select id="Year" onMouseOver={optionToSelect} onMouseMove={selectOption1} onChange={selectOption1} defaultValue="All">
                 {optionInSelect.map(ele=> <option key={ele.id} value={ele.year} >{ele.year}</option> )}
             </select>
 

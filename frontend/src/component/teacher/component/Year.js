@@ -21,15 +21,16 @@ function Year(props) {
             {/* <table style={{border: '1px solid black'}}> */}
             <table>
                 <thead>
+                    <tr>
                     <th>a</th>
                     <th>b</th>
                     <th>b</th>
                     <th>d</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    {sortYear.map(ele => <tr> {ele} <Table data={props.data} ele={ele}/> </tr>)} 
-                    <button onClick={logData}>log</button>
-
+                    {sortYear.map((ele,index) => <tr key={index}> {ele} <Table data={props.data} ele={ele}/> </tr>)} 
+                    {/* <button onClick={logData}>log</button> */}
                 </tbody>
 
             </table>
