@@ -9,6 +9,8 @@ function TShow() {
     const [showSelected, setShowSelected] = useState([]);
 
 
+    //fetch Data
+
     const fetchData = async () => {
         const result = await axios.get('/student');
         const data = result.data.map(ele => ({
@@ -30,7 +32,9 @@ function TShow() {
         setShowSelected(showListStudent)
     }, [optionInSelect])
     
-    
+
+
+    //Select
     
     const optionToSelect = async () => {
         // console.log("Hello")
@@ -59,7 +63,15 @@ function TShow() {
         }
     }
 
-    
+
+
+
+
+
+
+
+
+    //Log
     
     const logData = () => {
         console.log(showListStudent);
@@ -68,19 +80,38 @@ function TShow() {
     }
 
 
+
+    //Delete
+
     const deleteEle = async (targetId) => {
         await axios.delete(`/student/${targetId}`);
         console.log(targetId);
         const result = await axios.get(`/student`);
-        const data = result.data.map(ele => ({
+        const data = await result.data.map(ele => ({
             ...ele,
             editStatus: false,
             showStatus: false,
         }))
-        setShowListStudent(data);
-
-
+        await setShowListStudent(data);
+        await setShowSelected(data);
     }
+
+    //EditStatus
+
+    const changeStatusToEdit = async (targetId) => {
+        const updateStatus = showSelected.map((ele)=>{
+            if(ele.id == targetId){
+                return({...ele,editStatus: true})
+            }
+            return ele
+        })
+
+        await setShowListStudent(updateStatus);
+        await setShowSelected(updateStatus);
+        console.log(targetId);
+    }
+
+
 
 
     return (
@@ -91,7 +122,7 @@ function TShow() {
             </select>
 
             <ul>
-                <Year data={showSelected} onDelete={deleteEle} />
+                <Year data={showSelected} onDelete={deleteEle} dbClickToEdit={changeStatusToEdit}/>
             </ul>
 
             <button onClick={logData}>log</button>
