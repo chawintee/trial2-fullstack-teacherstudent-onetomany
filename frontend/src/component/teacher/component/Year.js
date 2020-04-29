@@ -8,8 +8,8 @@ function Year(props) {
     const sortYear = sePeRateYear.sort();
 
     const logData = () => {
-        console.log(allYear)
-        console.log(props.data)
+        console.log(allYear);
+        console.log(props.data);
         console.log(sePeRateYear);
         console.log(props.data.map(ele=>ele.year));
 

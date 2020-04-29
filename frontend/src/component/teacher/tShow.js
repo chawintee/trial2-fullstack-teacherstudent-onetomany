@@ -6,6 +6,7 @@ function TShow() {
 
     const [showListStudent, setShowListStudent] = useState([]);
     const [optionInSelect, setOptionInSelect] = useState([]);
+    const [showSelected, setShowSelected] = useState([]);
 
 
     const fetchData = async () => {
@@ -16,9 +17,6 @@ function TShow() {
         }) //add state to obj
         const data = await result.data;
         await setShowListStudent(data);
-        const onlyOptionToSelect = await showListStudent.map(ele=>ele.year);
-        const optionInSelect= await [...new Set(onlyOptionToSelect)];
-        await setOptionInSelect(optionInSelect)
     }
 
     useEffect(() => {
@@ -28,20 +26,26 @@ function TShow() {
 
     
     const optionToSelect = async () => {
-        console.log("Hello")
+        // console.log("Hello")
         const onlyOptionToSelect = await showListStudent.map(ele=>ele.year);
         // console.log(onlyOptionToSelect)
         const optionInSelect= await [...new Set(onlyOptionToSelect)];
+        optionInSelect.sort()
         // console.log(optionInSelect)
-        setOptionInSelect(optionInSelect)
+        const optionInSelect1 = await optionInSelect.map((ele,index)=>({id:index ,year:ele}));
+        setOptionInSelect(optionInSelect1)
+        // console.log(optionInSelect1)
 
     }
+    
 
-    const selectOption = (selected) => {
-        console.log("Hello")
-        console.log(selected)
+    const selectOption1 = (e) => {
+        // console.log("Hello")
+        // console.log(e.target.value)
+        const selected = showListStudent.filter((ele)=> ele.year == e.target.value);
+        // console.log(selected)
+        setShowSelected(selected)
     }
-
 
     
     
@@ -54,12 +58,12 @@ function TShow() {
     return (
         <div>
             Student Show for teacher
-            <select id="Year" onMouseOver={optionToSelect}>
-                {optionInSelect.map(ele=> <option value={ele} onClick={selectOption({ele})}>{ele}</option> )}
+            <select id="Year" onMouseOver={optionToSelect} onChange={selectOption1} >
+                {optionInSelect.map(ele=> <option key={ele.id} value={ele.year} >{ele.year}</option> )}
             </select>
 
             <ul>
-                <Year data={showListStudent} />
+                <Year data={showSelected} />
             </ul>
 
             <button onClick={logData}>log</button>
