@@ -12,6 +12,7 @@ function SRegister() {
     const [room, setRoom] = useState("");
     const [number, setNumber] = useState("");
     const [studentList, setStudentList] = useState([]);
+    const [toRedirect, setRedirect] = useState(false);
 
 
     //setData
@@ -66,6 +67,8 @@ function SRegister() {
             const yourId = Math.max(...onlyIdArray);
             alert(`your id is ${yourId+1}`);
 
+            setRedirect(!toRedirect)
+
  
 
         } else {
@@ -90,6 +93,7 @@ function SRegister() {
 
 
     return (
+
         <div>
 
             {/* <ul>
@@ -107,6 +111,8 @@ function SRegister() {
             <InputC name="Number" value={number} inputText={textNumber} />
 
             <button onClick={submitData}>Submit</button>
+
+            {toRedirect ? <Redirect to='/'/> : null}
 
 
         </div>
