@@ -23,6 +23,7 @@ function TShow() {
         setShowSelected(showListStudent)
     }
 
+    
     useEffect(() => {
         fetchData()
     }, [])
@@ -44,8 +45,8 @@ function TShow() {
         const optionInSelect= await [...new Set(onlyOptionToSelect)];
         optionInSelect.sort()
         // console.log(optionInSelect)
-        const optionInSelect1 = await optionInSelect.map((ele,index)=>({id:index ,year:ele}));
-        const optionInSelectAddAll = [({id:optionInSelect.length,year:"All"}),...optionInSelect1]
+        const optionInSelect1 = await optionInSelect.map((ele,index)=>({id:index+1 ,year:ele}));
+        const optionInSelectAddAll = [({id:0,year:"All"}),...optionInSelect1]
         setOptionInSelect(optionInSelectAddAll)        
     }
     
@@ -94,6 +95,8 @@ function TShow() {
             showStatus: false,
         }))
         await setShowListStudent(data);
+
+
         await setShowSelected(data);
     }
 
@@ -141,8 +144,8 @@ function TShow() {
     return (
         <div>
             Student Show for teacher<br/>
-            <select id="Year" onChange={selectOption1} defaultValue="All">
-                {optionInSelect.map(ele=> <option key={ele.id} value={ele.year} >{ele.year}</option> )}
+            <select id="Year" onChange={selectOption1} defaultValue="All" >
+                {optionInSelect.map(ele=> <option key={ele.id} label={ele.year} value={ele.year} >{ele.year}</option> )}
             </select>
 
             <ul>
