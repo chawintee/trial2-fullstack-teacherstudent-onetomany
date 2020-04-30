@@ -13,6 +13,8 @@ function SRegister() {
     const [number, setNumber] = useState("");
     const [studentList, setStudentList] = useState([]);
 
+
+    //setData
     const textName = (e) => {
         setName(e.target.value)
         console.log(`name is ${name}`)
@@ -57,12 +59,14 @@ function SRegister() {
             setNumber("");
             // fetchData();
 
-            const result = await axios.get('/student');
-            await setStudentList(result.data);
-            const yourId = studentList.length;
-            alert(`your id is ${yourId}`);
+            // const result = await axios.get('/student');
+            // await setStudentList(result.data);
+            const onlyIdArray = studentList.map(ele=>ele.id)
 
+            const yourId = Math.max(...onlyIdArray);
+            alert(`your id is ${yourId+1}`);
 
+ 
 
         } else {
             alert("Please input all boxes")
@@ -73,15 +77,15 @@ function SRegister() {
 
 
 
-    // const fetchData = async () => {
-    //     const result = await axios.get('/student');
-    //     setStudentList(result.data)
-    //     console.log(result.data)
-    // }
+    const fetchData = async () => {
+        const result = await axios.get('/student');
+        await setStudentList(result.data)
+        await console.log(studentList)
+    }
 
-    // useEffect(()=>{
-    //     fetchData();
-    // },[])
+    useEffect(()=>{
+        fetchData();
+    },[])
 
 
 
