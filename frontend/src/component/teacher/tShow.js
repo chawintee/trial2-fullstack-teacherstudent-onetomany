@@ -8,6 +8,7 @@ function TShow() {
     const [optionInSelect, setOptionInSelect] = useState([]);
     const [showSelected, setShowSelected] = useState([]);
     const [editText,setEditText] = useState("");
+    const [selectStatus,setSelectStatus] = useState("All");
 
 
     //fetch Data
@@ -25,7 +26,7 @@ function TShow() {
 
     
     useEffect(() => {
-        fetchData()
+        fetchData() 
     }, [])
     useEffect(() => {
         optionToSelect()
@@ -34,8 +35,8 @@ function TShow() {
         setShowSelected(showListStudent)
     }, [optionInSelect])
     
-
-
+    
+    
     //Select
     
     const optionToSelect = async () => {
@@ -50,22 +51,32 @@ function TShow() {
         setOptionInSelect(optionInSelectAddAll)        
     }
     
-
-
     
-    const selectOption1 = (e) => {
+    
+    
+    const selectOption = (e) => {
         // console.log("Hello")
         // console.log(e.target.value)
-        if(e.target.value == "All") {
+        setSelectStatus(e.target.value)
+        selectOption1();
+    }
+    
+    const selectOption1 = () => {
+        if(selectStatus == "All") {
             setShowSelected(showListStudent);
         }else{
-            const selected = showListStudent.filter((ele)=> ele.year == e.target.value);
+            const selected = showListStudent.filter((ele)=> ele.year == selectStatus);
             // console.log(s elected)
             setShowSelected(selected)
         }
+        // console.log(selectStatus)
+        // console.log(showSelected)
     }
-
-
+    
+    useEffect(() => {
+        selectOption1()
+    }, [selectStatus])
+    
 
 
 
@@ -94,10 +105,13 @@ function TShow() {
             editStatus: false,
             showStatus: false,
         }))
-        await setShowListStudent(data);
-
-
-        await setShowSelected(data);
+        if(selectStatus == "All") {
+            setShowSelected(data);
+        }else{
+            const selected = data.filter((ele)=> ele.year == selectStatus);
+            // console.log(s elected)
+            setShowSelected(selected)
+        }
     }
 
     //EditStatus
@@ -144,7 +158,7 @@ function TShow() {
     return (
         <div>
             Student Show for teacher<br/>
-            <select id="Year" onChange={selectOption1} defaultValue="All" >
+            <select id="Year" onChange={selectOption} defaultValue="All" >
                 {optionInSelect.map(ele=> <option key={ele.id} label={ele.year} value={ele.year} >{ele.year}</option> )}
             </select>
 
